@@ -1,8 +1,8 @@
-# Гайд з підготовки — Патерни проектування + Комп'ютерні мережі
+# Гайд з підготовки — Патерни проектування + Мережі + Бази даних
 
 > **Мета:** єдина точка входу по всьому матеріалу репозиторію.  
-> **Контекст:** підготовка до технічної співбесіди в компанії, що спеціалізується на **мережевому моніторингу та управлінні (Network Management)** — SolarWinds.  
-> **Загальний обсяг:** 23 патерни проектування (GoF, C#) + 10 детальних розборів мережевих технологій ≈ 28 000+ рядків матеріалу.
+> **Контекст:** підготовка до технічної співбесіди в компанії, що спеціалізується на **мережевому моніторингу та управлінні (Network Management)** — SolarWinds — плюс повноцінна серія з баз даних до сіньйорського рівня.  
+> **Загальний обсяг:** 23 патерни проектування (GoF, C#) + 10 детальних розборів мережевих технологій + 16 документів з баз даних (реляційні + NoSQL) ≈ 44 000+ рядків матеріалу.
 
 ---
 
@@ -15,9 +15,12 @@
    - [Структурні (Structural) — 7](#структурні-structural--7)
    - [Поведінкові (Behavioral) — 10](#поведінкові-behavioral--10)
 4. [Частина II — Комп'ютерні мережі (10)](#частина-ii--компютерні-мережі-10)
-5. [Рекомендований план підготовки](#рекомендований-план-підготовки)
-6. [Наскрізні теми, що з'являються в кількох файлах](#наскрізні-теми-що-зявляються-в-кількох-файлах)
-7. [Швидкий чекліст перед співбесідою](#швидкий-чекліст-перед-співбесідою)
+5. [Частина III — Бази даних (16)](#частина-iii--бази-даних-16)
+   - [Реляційні (Relational) — 9](#реляційні-relational--9)
+   - [NoSQL — 7](#nosql--7)
+6. [Рекомендований план підготовки](#рекомендований-план-підготовки)
+7. [Наскрізні теми, що з'являються в кількох файлах](#наскрізні-теми-що-зявляються-в-кількох-файлах)
+8. [Швидкий чекліст перед співбесідою](#швидкий-чекліст-перед-співбесідою)
 
 ---
 
@@ -66,17 +69,40 @@
 │   ├── template-method-pattern-csharp.md
 │   └── visitor-pattern-csharp.md
 │
-└── Мережі/                             (Networking fundamentals)
-    ├── osi-tcp-ip-model.md
-    ├── tcp-vs-udp.md
-    ├── ip-addressing-subnetting.md
-    ├── routing-fundamentals.md
-    ├── switching-and-vlans.md
-    ├── snmp-protocol.md                ← найважливіший файл для SolarWinds
-    ├── syslog-and-netflow-monitoring.md
-    ├── dns-and-dhcp.md
-    ├── network-security-basics.md
-    └── http-https-and-web-protocols.md
+├── Мережі/                             (Networking fundamentals)
+│   ├── osi-tcp-ip-model.md
+│   ├── tcp-vs-udp.md
+│   ├── ip-addressing-subnetting.md
+│   ├── routing-fundamentals.md
+│   ├── switching-and-vlans.md
+│   ├── snmp-protocol.md                ← найважливіший файл для SolarWinds
+│   ├── syslog-and-netflow-monitoring.md
+│   ├── dns-and-dhcp.md
+│   ├── network-security-basics.md
+│   └── http-https-and-web-protocols.md
+│
+├── ecommerce-architecture-guide.md     (застосування патернів у реальному e-commerce)
+│
+└── БазиДаних/                          (Databases: Junior → Senior)
+    ├── Реляційні/                      (Relational)
+    │   ├── relational-model-and-normalization.md
+    │   ├── sql-query-language-deep-dive.md
+    │   ├── indexes-and-query-optimization.md
+    │   ├── transactions-acid-and-isolation-levels.md
+    │   ├── database-storage-engines-internals.md
+    │   ├── replication-and-scaling-relational.md
+    │   ├── orm-entity-framework-and-dapper.md
+    │   ├── backup-recovery-and-high-availability.md
+    │   └── distributed-transactions-and-saga.md
+    │
+    └── NoSQL/
+        ├── nosql-overview-and-cap-theorem.md      ← вхідна точка в NoSQL
+        ├── document-databases-mongodb.md
+        ├── key-value-and-redis.md
+        ├── wide-column-stores-cassandra.md
+        ├── graph-databases.md
+        ├── nosql-data-modeling-and-consistency.md
+        └── polyglot-persistence-and-choosing-the-right-database.md  ← капстоун усієї серії БД
 ```
 
 ---
@@ -147,6 +173,40 @@
 
 ---
 
+## Частина III — Бази даних (16)
+
+Ця серія написана до **сіньйорського рівня**: кожен файл має розділ "Junior → Senior" питань для співбесіди, і, на відміну від серій патернів/мереж, наскрізно використовує **одну спільну e-commerce-схему** (Customers/Orders/OrderItems/Products/Categories/Reviews), щоб приклади різних файлів природно стикувались один з одним.
+
+### Реляційні (Relational) — 9
+
+| # | Тема | Файл | Ключова сіньйорська ідея |
+|---|---|---|---|
+| 1 | Реляційна модель та нормалізація | `relational-model-and-normalization.md` | 1NF→BCNF покроково через аномалії, і коли свідомо денормалізувати |
+| 2 | SQL — мова запитів | `sql-query-language-deep-dive.md` | JOIN-и, підзапити, рекурсивні CTE, віконні функції (топ-N у групі) |
+| 3 | Індекси та оптимізація запитів | `indexes-and-query-optimization.md` | B-Tree зсередини, leftmost-prefix, non-sargable запити, читання execution plan |
+| 4 | Транзакції, ACID, рівні ізоляції | `transactions-acid-and-isolation-levels.md` | Dirty/non-repeatable/phantom read, lost update, MVCC vs locking |
+| 5 | Внутрішній устрій СУБД | `database-storage-engines-internals.md` | Сторінки, буферний пул, WAL, чому продуктивність падає, коли таблиця перестає вміщатись у RAM |
+| 6 | Реплікація та масштабування | `replication-and-scaling-relational.md` | Sync vs async реплікація, шардинг, вибір shard key, read-your-writes |
+| 7 | ORM: EF Core та Dapper | `orm-entity-framework-and-dapper.md` | Проблема **N+1** — найпрактичніший скіл усієї серії |
+| 8 | Backup, Recovery, High Availability | `backup-recovery-and-high-availability.md` | RPO/RTO, Point-in-Time Recovery, чому реплікація ≠ бекап, split-brain |
+| 9 | Розподілені транзакції та Saga | `distributed-transactions-and-saga.md` | Чому 2PC не масштабується; Saga = Command+Memento+Mediator на рівні мікросервісів |
+
+### NoSQL — 7
+
+| # | Тема | Файл | Ключова сіньйорська ідея |
+|---|---|---|---|
+| 1 | Огляд NoSQL та теорема CAP | `nosql-overview-and-cap-theorem.md` | Точне (не спрощене "2 з 3") трактування CAP + PACELC |
+| 2 | Документні БД: MongoDB | `document-databases-mongodb.md` | Embedding vs Referencing — головне рішення в моделюванні документів |
+| 3 | Ключ-значення: Redis | `key-value-and-redis.md` | Sorted Set для лідербордів, Cache-Aside, rate limiting, thundering herd |
+| 4 | Wide-column: Cassandra | `wide-column-stores-cassandra.md` | **Query-first моделювання** — повна протилежність реляційній нормалізації |
+| 5 | Графові БД: Neo4j | `graph-databases.md` | Index-free adjacency — чому обхід графа не деградує на масштабі, на відміну від SQL self-JOIN |
+| 6 | Моделювання даних та узгодженість у NoSQL | `nosql-data-modeling-and-consistency.md` | Last-Write-Wins vs Vector Clocks vs CRDT; коли eventual consistency безпечна, а коли ні |
+| 7 | Поліглотна персистентність (капстоун) | `polyglot-persistence-and-choosing-the-right-database.md` | Фреймворк вибору БД + повна архітектура даних великого інтернет-магазину |
+
+> 💡 Файл `polyglot-persistence-and-choosing-the-right-database.md` — підсумок усієї серії БД і водночас прямий компаньйон до `ecommerce-architecture-guide.md` у корені репозиторію: один описує шар **даних** великого магазину, інший — шар **прикладної логіки й патернів**. Варто читати їх парою.
+
+---
+
 ## Рекомендований план підготовки
 
 Порядок нижче оптимізований під **компанію мережевого моніторингу**. Якщо співбесіда більше про software engineering (C#/.NET, дизайн коду) — почни з блоку "Патерни"; якщо про мережі/підтримку/NOC — починай з блоку "Мережі" у вказаному порядку.
@@ -176,6 +236,16 @@
 13. Далі — решта Структурних (Adapter, Facade, Composite, Bridge, Proxy, Flyweight)
 14. Останні — Abstract Factory, Builder, Prototype (рідше є центром питання, але часто спливають у порівняннях "чим X відрізняється від Y")
 
+### Крок 6 — Бази даних (окремий трек; читай послідовно, файли побудовані один на одному)
+15. `relational-model-and-normalization.md` → `sql-query-language-deep-dive.md` → `indexes-and-query-optimization.md` — фундамент: модель, мова запитів, продуктивність
+16. `transactions-acid-and-isolation-levels.md` — ACID/isolation levels, класика будь-якої співбесіди про БД
+17. `orm-entity-framework-and-dapper.md` — проблема **N+1**, найчастіше практичне питання на живому коді
+18. `database-storage-engines-internals.md` → `replication-and-scaling-relational.md` → `backup-recovery-and-high-availability.md` → `distributed-transactions-and-saga.md` — архітектура та масштабування, для Middle→Senior позицій
+19. `nosql-overview-and-cap-theorem.md` — обов'язковий вхід у NoSQL перед будь-яким конкретним файлом нижче
+20. `document-databases-mongodb.md`, `key-value-and-redis.md` — найпоширеніші NoSQL-технології на практиці
+21. `wide-column-stores-cassandra.md`, `graph-databases.md`, `nosql-data-modeling-and-consistency.md` — для позицій, що явно вимагають розподілені системи
+22. `polyglot-persistence-and-choosing-the-right-database.md` — читати останнім: капстоун, що збирає все в одну архітектуру
+
 ---
 
 ## Наскрізні теми, що з'являються в кількох файлах
@@ -188,6 +258,10 @@
 - **Command + Memento** (патерни) — часто розглядаються разом, оскільки Command для реалізації Undo зазвичай спирається на Memento для збереження попереднього стану.
 - **State + Strategy** — структурно майже ідентичні; питання "чим відрізняються" — класика співбесід, відповідь є в обох відповідних файлах у розділі порівняння.
 - **Composite + Iterator + Visitor** — три патерни, що часто працюють РАЗОМ над деревоподібними структурами (файлова система, DOM, AST): Composite задає структуру, Iterator обходить її, Visitor виконує операцію під час обходу.
+- **Saga = Command + Memento + Mediator, застосовані до розподілених транзакцій** — `distributed-transactions-and-saga.md` явно проводить цю паралель: компенсуюча дія кроку Saga — це Command з Memento-подібним знімком стану для відкату, а Saga Orchestrator — буквально Mediator, застосований до мікросервісів. Якщо розумієш ці три патерни — Saga вчиться вдвічі швидше.
+- **Composite в пам'яті vs Embedding/Referencing на диску** — `document-databases-mongodb.md` явно розділяє ці дві споріднені, але окремі задачі: як дерево категорій моделюється в ООП-коді (патерн Composite) — і як те саме дерево зберігається в MongoDB (embed vs reference). Плутати ці два рівні — поширена помилка.
+- **Observer як механізм синхронізації в поліглотній архітектурі** — `polyglot-persistence-and-choosing-the-right-database.md` показує Observer не як патерн у межах одного застосунку, а як спосіб тримати кілька різних БД (реляційну, MongoDB, Redis, Neo4j) у приблизно узгодженому стані через події.
+- **UDP-ненадійність (мережі) і eventual consistency (NoSQL)** — та сама фундаментальна ідея з двох різних сторін: `tcp-vs-udp.md` пояснює, чому мережевий протокол може не гарантувати доставку, а `nosql-data-modeling-and-consistency.md` — чому розподілена БД може тимчасово повертати застарілі дані. В обох випадках відповідь одна: явно спроєктована retry/reconciliation-логіка, а не сподівання, що "само якось узгодиться".
 
 ---
 
@@ -211,6 +285,16 @@
 - [ ] Чим Decorator відрізняється від Proxy (додає поведінку vs контролює доступ)
 - [ ] Чим Facade відрізняється від Adapter (спрощує підсистему vs перекладає інтерфейс)
 - [ ] Приклад Observer через `event`/делегати в C#
+
+**Бази даних:**
+- [ ] Розшифрувати ACID і назвати всі 4 рівні ізоляції та які аномалії кожен запобігає
+- [ ] Пояснити проблему N+1 в ORM і як її виправити (`.Include()`/eager loading)
+- [ ] Leftmost-prefix правило для складеного індексу — на прикладі
+- [ ] Порахувати нормальні форми: навести приклад порушення 2NF і 3NF
+- [ ] CAP-теорема — точне формулювання (не "2 з 3", а вибір C/A саме під час партиції) + PACELC
+- [ ] Query-first моделювання в Cassandra на противагу нормалізації в SQL
+- [ ] Embedding vs Referencing у MongoDB — коли обрати кожен
+- [ ] Чому Saga, а не 2PC, для транзакцій між мікросервісами
 
 ---
 
